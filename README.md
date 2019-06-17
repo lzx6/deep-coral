@@ -11,9 +11,8 @@
 ![deep coral.png](https://upload-images.jianshu.io/upload_images/16293451-328e07c23bb9234f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 # 结果
-![deep coral.png](https://upload-images.jianshu.io/upload_images/16293451-328e07c23bb9234f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![[图片上传中...(loss.png-9fca00-1560734677390-0)]
-](https://upload-images.jianshu.io/upload_images/16293451-3d9140c8250a303c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![acc.png](https://upload-images.jianshu.io/upload_images/16293451-3d9140c8250a303c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![loss.png](https://upload-images.jianshu.io/upload_images/16293451-e501f48919602d11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 # 参考
