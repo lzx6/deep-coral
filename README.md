@@ -6,7 +6,7 @@
 - pytorch 1.0
 - torchvision 0.2.1
 - CUDA 9.1
-
+- python 3
 # 网络配置
 ![deep coral.png](https://upload-images.jianshu.io/upload_images/16293451-328e07c23bb9234f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
