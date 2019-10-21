@@ -5,4 +5,4 @@
 @ file: __init__.py
 @ time: 2019/6/16 15:13
 """
-from .model import AlexNet,CORAL,Deep_coral
+from .model import AlexNet,CORAL,Deep_coral,LOG_CORAL

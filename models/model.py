@@ -8,7 +8,7 @@
 import torch.nn as nn
 import torch
 
-__all__ = ['CORAL','AlexNet','Deep_coral']
+__all__ = ['CORAL','AlexNet','Deep_coral','LOG_CORAL']
 def CORAL(src,tgt):
     d = src.size(1)
     # xm = torch.mean(src,0,keepdim = True)-src # keepdim保持维度,按列求和
@@ -22,6 +22,19 @@ def CORAL(src,tgt):
     loss = torch.sum(torch.mul((src_c-tgt_c),(src_c-tgt_c)))
     loss = loss/(4*d*d)
     return loss
+
+def LOG_CORAL(src,tgt):
+    d = src.size(1)
+    src_c = coral(src)
+    tgt_c = coral(tgt)
+    src_vals, src_vecs = torch.symeig(src_c,eigenvectors = True)
+    tgt_vals, tgt_vecs = torch.symeig(tgt_c,eigenvectors = True)
+    src_cc = torch.mm(src_vecs,torch.mm(torch.diag(torch.log(src_vals)),src_vecs.t()))
+    tgt_cc = torch.mm(tgt_vecs,torch.mm(torch.diag(torch.log(tgt_vals)),tgt_vecs.t()))
+    loss = torch.sum(torch.mul((src_cc - tgt_cc), (src_cc - tgt_cc)))
+    loss = loss / (4 * d * d)
+    return loss
+
 
 
 def coral(data):

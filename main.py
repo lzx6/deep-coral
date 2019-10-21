@@ -7,7 +7,7 @@
 """
 from data import office31_loader
 from params import param
-from models import CORAL,Deep_coral,AlexNet
+from models import CORAL,Deep_coral,AlexNet,LOG_CORAL
 from utils import save
 import torch
 import torch.nn as nn
@@ -42,7 +42,10 @@ def train(model,optimizer,epoch,lambda_):
         src_out,tgt_out = model(src_data,tgt_data)
 
         loss_classifier = criterion(src_out,src_label)
-        loss_coral = CORAL(src_out,tgt_out)
+        if coral_type == 'CORAL':
+            loss_coral = CORAL(src_out,tgt_out)
+        else:
+            loss_coral = LOG_CORAL(src_out,tgt_out)
 
         sum_loss = lambda_*loss_coral+loss_classifier
         sum_loss.backward()
@@ -102,6 +105,7 @@ def load_pretrained(model):
     model.load_state_dict(model_dict)
 
 if __name__ == '__main__':
+    coral_type = 'log'
     model = Deep_coral(num_classes=31)
     optimizer = torch.optim.SGD([{'params': model.feature.parameters()},
                                  {'params':model.fc.parameters(),'lr':10*args.lr}],
@@ -114,7 +118,7 @@ if __name__ == '__main__':
     test_t_sta = []
     for e in range(args.epochs):
         # lambda_ = (e+1)/args.epochs
-        lambda_ = 0.0
+        lambda_ = 10.0
         res = train(model,optimizer,e+1,lambda_)
         print('###EPOCH {}: Class: {:.6f}, CORAL: {:.6f}, Total_Loss: {:.6f}'.format(
             e + 1,
@@ -141,7 +145,7 @@ if __name__ == '__main__':
             test_target['total'],
             test_target['accuracy'],
         ))
-    result_path = 'result_norm_no'
+    result_path = 'result_norm_log'
     import os
     os.makedirs(result_path,exist_ok=True)
     torch.save(model.state_dict(),result_path+'/checkpoint.tar')
